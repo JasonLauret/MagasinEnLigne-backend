@@ -30,17 +30,13 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
-        // RepositoryRestConfigurer.super.configureRepositoryRestConfiguration(config, cors);
-
-        // --- Ces configurations ci-dessous permettent de rendre ces class en lecture seule ---
-
-        // Tableau de méthode dont je ne veux pas pour l'instant
+        // --- Les configurations ci-dessous permettent de rendre ces class en lecture seule ---
+        // Tableau de méthode dont je ne veux pas
         HttpMethod[] theUnsupportedActions = {HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE, HttpMethod.PATCH};
 
-        // Desactivation des méthodes HTTP pour ProductCategory : PUT, POST, DELETE
+        // Appel de la méthode disableHttpMethods qui permet la desactivation des méthodes HTTP pour ProductCategory : PUT, POST, DELETE, PATCH
         disableHttpMethods(ProductCategory.class, config, theUnsupportedActions);
         disableHttpMethods(Product.class, config, theUnsupportedActions);
-//        disableHttpMethods(Country.class, config, theUnsupportedActions);
         disableHttpMethods(State.class, config, theUnsupportedActions);
         disableHttpMethods(Order.class, config, theUnsupportedActions);
 

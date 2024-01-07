@@ -27,6 +27,10 @@ public class CountryController {
         this.countryService = countryService;
     }
 
+    /**
+     * Permet de récupérer une liste de pays
+     * @return
+     */
     @GetMapping
     public ResponseEntity<List<Country>> getAllCountries() {
         List<Country> countries = countryService.getAllCountries();
