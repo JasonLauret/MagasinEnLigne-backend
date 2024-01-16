@@ -15,4 +15,6 @@ public interface StateService {
     void updateState(int id, State state);
 
     void deleteStateById(int id);
+
+    List<State> getByCountryCode(String code);
 }

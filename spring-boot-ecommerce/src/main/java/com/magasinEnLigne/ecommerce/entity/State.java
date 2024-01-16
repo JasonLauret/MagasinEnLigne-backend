@@ -1,6 +1,7 @@
 package com.magasinEnLigne.ecommerce.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class State {
 
     @ManyToOne
     @JoinColumn(name="country_id")
+    @JsonIgnoreProperties("states")
     private Country country;
 
 }

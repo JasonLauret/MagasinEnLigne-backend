@@ -31,6 +31,12 @@ public class StateController {
         return new ResponseEntity<>(states, HttpStatus.OK);
     }
 
+    @GetMapping("/byCountryCode/{code}")
+    public ResponseEntity<List<State>> getByCountryCode(@PathVariable String code) {
+        List<State> states = stateService.getByCountryCode(code);
+        return new ResponseEntity<>(states, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<State> getStateById(@PathVariable int id) {
         State state = stateService.getStateById(id);
@@ -51,22 +57,22 @@ public class StateController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?>  updateStateById(@PathVariable int id, @Valid @RequestBody State state, BindingResult result) {
-//        if (result.hasErrors()) {
-//            return handleValidationErrors(result);
-//        }
-//        stateService.updateState(id, state);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
-        try {
-            stateService.updateState(id, state);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (StateNotFoundException e) {
-            // Gérer l'exception de l'état non trouvé
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (StateAlreadyExistsException e) {
-            // Gérer l'exception de l'état déjà existant
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        if (result.hasErrors()) {
+            return handleValidationErrors(result);
         }
+        stateService.updateState(id, state);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+//        try {
+//            stateService.updateState(id, state);
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        } catch (StateNotFoundException e) {
+//            // Gérer l'exception de l'état non trouvé
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+//        } catch (StateAlreadyExistsException e) {
+//            // Gérer l'exception de l'état déjà existant
+//            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+//        }
 
     }
 
